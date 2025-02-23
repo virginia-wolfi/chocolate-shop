@@ -1,0 +1,26 @@
+[tool.poetry]
+name = "chocolate-shop"
+version = "0.1.0"
+description = "online chocolate store"
+authors = ["virgnia_wolfi <miss_lilu@ukr.net>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.13"
+Django = "^5.1"
+django-allauth = "^65.4.1"
+django-crispy-forms = "^2.3"
+crispy-bootstrap5 = "^2024.10"
+pillow = "^11.1.0"
+django-phonenumber-field = {extras = ["phonenumberslite"], version = "^8.0.0"}
+
+
+[tool.poetry.group.dev.dependencies]
+django-extensions = "^3.2.3"
+django-debug-toolbar = "^5.0.1"
+djlint = "^1.36.4"
+ruff = "^0.9.6"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

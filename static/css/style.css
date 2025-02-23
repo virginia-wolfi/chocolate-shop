@@ -1,0 +1,130 @@
+:root {
+    --main-bg-color: rgb(244, 232, 205);
+    --header-text-color: rgb(244, 232, 205);
+    --main-dark-color: rgb(48, 35, 35);
+    --button-color: rgb(205, 167, 96);
+    --text-color: rgb(48, 35, 35);
+    --button-hover-color: rgb(48, 35, 35);
+    --section-background: rgb(214, 173, 96);
+    --border-color: rgb(207, 197, 174);
+    --border-color-darker: 146, 139, 123;
+}
+
+
+body {
+    background-color: var(--main-bg-color);
+    font-family: "Dosis", serif;
+}
+.dot {
+  font-size: 30px; /* Размер точки */
+  position: absolute;
+  top: 50%;
+  right: 0;
+  transform: translateY(-50%); /* Центрируем точку по вертикали */
+}
+
+ul.nav  {
+    background-color: var(--main-dark-color);
+    color: var(--header-text-color);
+
+}
+
+.nav a {
+ color: var(--header-text-color);
+ text-decoration: none;
+
+}
+
+.nav a:hover {
+    color: var(--button-hover-color);
+}
+form label {
+    display: none;
+}
+.card {
+    background-color: var(--main-bg-color);
+    border: 1px solid var(--border-color);
+    border-radius: 0px;
+    color: var(--text-color);
+
+
+}
+.card:hover {
+    border-color: var(--border-color-dark);
+
+}
+.card a {
+    color: var(--main-dark-color);
+}
+.btn-custom {
+    color: var(--text-color);
+    border-color: var(--border-color-dark);
+}
+.btn-custom:hover {
+    background-color: var(--button-color);
+}
+.card-body {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+}
+.card-text {
+    flex-grow: 1;
+}
+
+.hero-section {
+  background-image: url('/static/images/4f0b3c0f-66b0-4e9a-a411-7a0fe3097156.webp'); /* Путь к картинке */
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  min-height: 100vh;
+}
+
+.hero-section::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.2); /* Прозрачность черного фона (можно изменить цвет и уровень прозрачности) */
+  z-index: 1;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2; /* Содержимое будет поверх прозрачного фона */
+}
+
+.quantity-container {
+    display: flex !important;
+    align-items: center !important;
+    padding: 5px !important;
+    width: 100px !important;
+    justify-content: space-between !important;
+    height: 50px;
+}
+
+.quantity-btn {
+    border: none !important;
+    font-size: 20px !important;
+    padding: 5px !important;
+    cursor: pointer !important;
+    display: flex;
+    background-color: var(--main-bg-color);
+}
+
+.quantity-input {
+    width: 40px !important;
+    text-align: center !important;
+    border: none !important;
+    font-size: 16px !important;
+    background-color: var(--main-bg-color);
+}
+.quantity-container,
+.quantity-btn:focus,
+.quantity-input:focus {
+    outline: none !important;
+    border: none !important!;
+}

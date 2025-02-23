@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% block header %}
+    {% include 'partial/header.html' %}
+{% endblock %}
+{% block content %}
+{% load crispy_forms_tags %}
+
+<div class="container mt-5">
+    <h3>Confirm Your Order</h3>
+
+    <!-- Информация о корзине -->
+    <div class="basket-items">
+        <div class="list-group border-0">
+                {% for item in user.baskets.all %}
+                    <div class="row align-items-center border-bottom py-1 justify-content-center g-2">
+                        <!-- Изображение -->
+                        <div class="col-md-3 text-center">
+                            <img src="{{ item.product.image.url }}"
+                                 class="img-fluid"
+                                 alt="{{ item.product.name }}"
+                                 style="max-height: 80px">
+                        </div>
+                        <!-- Название -->
+                        <div class="col-md-3 d-flex align-items-center justify-content-center">
+                            <h6 class="mb-0">{{ item.product.name }}</h6>
+                        </div>
+                        <div class="col-md-2 d-flex align-items-center justify-content-center">
+                            <h6 class="mb-0">{{ item.quantity }} pcs</h6>
+                        </div>
+                        <div class="col-md-2 d-flex align-items-center justify-content-center">
+                            <h6 class="mb-0">{{ item.sum }}</h6>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+    </div>
+
+    <!-- Форма для подтверждения -->
+    <h5>Enter your details</h5>
+    <form method="post" action="{% url 'checkout' %}">
+        {% csrf_token %}
+        {{ form|crispy }}
+        <button type="submit" class="btn btn-custom">Confirm Order</button>
+    </form>
+
+    {% if order_success %}
+        <p class="alert alert-success mt-3">Your order has been successfully placed!</p>
+    {% endif %}
+</div>
+{% endblock %}
