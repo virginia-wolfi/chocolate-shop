@@ -10,17 +10,18 @@
     --border-color-darker: 146, 139, 123;
 }
 
-
 body {
     background-color: var(--main-bg-color);
     font-family: "Dosis", serif;
 }
+
+
 .dot {
-  font-size: 30px; /* Размер точки */
+  font-size: 30px;
   position: absolute;
   top: 50%;
   right: 0;
-  transform: translateY(-50%); /* Центрируем точку по вертикали */
+  transform: translateY(-50%);
 }
 
 ul.nav  {
@@ -50,7 +51,7 @@ form label {
 
 }
 .card:hover {
-    border-color: var(--border-color-dark);
+    border-color: var(--button-color);
 
 }
 .card a {
@@ -58,7 +59,7 @@ form label {
 }
 .btn-custom {
     color: var(--text-color);
-    border-color: var(--border-color-dark);
+    border-color: var(--button-color);
 }
 .btn-custom:hover {
     background-color: var(--button-color);
@@ -74,7 +75,7 @@ form label {
 }
 
 .hero-section {
-  background-image: url('/static/images/4f0b3c0f-66b0-4e9a-a411-7a0fe3097156.webp'); /* Путь к картинке */
+  background-image: url('/static/images/4f0b3c0f-66b0-4e9a-a411-7a0fe3097156.webp');
   background-size: cover;
   background-position: center;
   position: relative;
@@ -88,13 +89,13 @@ form label {
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(0, 0, 0, 0.2); /* Прозрачность черного фона (можно изменить цвет и уровень прозрачности) */
+  background: rgba(0, 0, 0, 0.2);
   z-index: 1;
 }
 
 .hero-content {
   position: relative;
-  z-index: 2; /* Содержимое будет поверх прозрачного фона */
+  z-index: 2;
 }
 
 .quantity-container {
@@ -126,5 +127,5 @@ form label {
 .quantity-btn:focus,
 .quantity-input:focus {
     outline: none !important;
-    border: none !important!;
+    border: none !important;
 }
