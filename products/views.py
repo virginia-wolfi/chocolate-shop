@@ -4,28 +4,45 @@ from django.shortcuts import get_object_or_404
 from django.urls import reverse_lazy
 from django.views import View
 from django.views.generic import TemplateView, ListView, DetailView, DeleteView
+from django_filters.views import FilterView
 
 from common.views import TitleMixin
+from products.filters import ProductFilterByType, ProductFilter
 from products.models import ProductCategory, Product, Basket
 
 
 class IndexView(TitleMixin, TemplateView):
     template_name = "home.html"
     title = "Chocolate Store"
+    extra_context = {'product_name_filter': ProductFilter}
 
 
-class CategoryProductsView(ListView):
+class CategoryProductsView(TitleMixin, FilterView):
     template_name = "category/category_products.html"
     context_object_name = "category_products"
+    filterset_class = ProductFilterByType
+    extra_context = {'product_name_filter': ProductFilter}
 
     def get_queryset(self):
-        category = get_object_or_404(ProductCategory, slug=self.kwargs["slug"])
-        return category.products.all()
+        self.category = get_object_or_404(ProductCategory, slug=self.kwargs["slug"])
+        return self.category.products.all()
+
+    def get_context_data(self, *, object_list = ..., **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['category'] = self.category
+        return context
+
+class ProductListView(FilterView):
+    template_name = "product/list.html"
+    context_object_name = "products"
+    filterset_class = ProductFilter
+    extra_context = {'product_name_filter': ProductFilter}
+
 
 
 class ProductDetailView(DetailView):
     model = Product
-    template_name = "product/product.html"
+    template_name = "product/detail.html"
     context_object_name = "product"
 
 

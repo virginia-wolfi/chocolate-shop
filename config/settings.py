@@ -35,7 +35,10 @@ DEBUG = env.bool('DEBUG', default=False)
 
 ALLOWED_HOSTS = []
 
-
+#for django-debug-toolbar
+INTERNAL_IPS = [
+    "127.0.0.1",
+]
 # Application definition
 
 INSTALLED_APPS = [
@@ -53,6 +56,7 @@ INSTALLED_APPS = [
     "crispy_bootstrap5",
     "phonenumber_field",
     "debug_toolbar",
+    "django_filters",
 
     "accounts",
     "products",
@@ -134,16 +138,16 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
-STATIC_URL = "static/"
+STATIC_URL = '/static/'
 STATICFILES_DIRS = [
-    BASE_DIR / "static",
+    BASE_DIR / 'static',
 ]
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
-# django-allauth config
+# django-allauth config≠
 SITE_ID = 1  # new
 AUTH_USER_MODEL = "accounts.User"
 

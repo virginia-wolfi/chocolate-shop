@@ -16,6 +16,7 @@ pillow = "^11.1.0"
 django-phonenumber-field = {extras = ["phonenumberslite"], version = "^8.0.0"}
 psycopg2-binary = "^2.9.10"
 django-environ = "^0.12.0"
+django-filter = "^25.1"
 
 
 [tool.poetry.group.dev.dependencies]

@@ -1,37 +1,47 @@
 {% load static %}
 {% load category_tag %}
+
 <header>
-    <div class="container d-flex justify-content-between align-items-center">
-        <div class="col-3"></div>
-        <div class="col-6 text-center">
-            <a href="/" class="navbar-brand">
-                <img src="{% static 'images/logo.jpg' %}"
-                     class="img-fluid"
-                     style="max-width: 250px"
-                     alt="Cocoa Pixies Logo">
-            </a>
+    <div class="container">
+        <div class="row align-items-center">
+            <!-- Левая колонка (пустая для выравнивания) -->
+            <div class="col-md-3"></div>
+            <!-- Логотип в центре -->
+            <div class="col-6 text-center">
+                <a href="/" class="navbar-brand">
+                    <img src="{% static 'images/logo(1).png' %}"
+                         class="img-fluid"
+                         style="max-width: 250px"
+                         alt="Cocoa Pixies Logo">
+                </a>
+            </div>
+            <div class="col-md-3 text-end header-icons-container">
+                <a href="{% url 'account_login' %}" class="me-3 header-icon-user"></a>
+                <a href="{% url 'basket' %}" class="header-icon-basket">
+                    {% if user.is_authenticated %}
+                        <cart-count class="header__cart-count header__cart-count--floating bubble-count">{{ user.basket_total_quantity }}</cart-count>
+                    {% endif %}
+                </a>
+            </div>
+            <div class="row">
+                <form action="{% url 'product_list' %}" method="get">
+                    {{ product_name_filter.form }}
+                </form>
+            </div>
         </div>
-        <div class="col-3 text-end">
-            {% if user.is_authenticated %}
-                <a href="{% url 'account_logout' %}" class="me-3">
-                    <img src="{% static 'icons/logout.png' %}" alt="Logout" width="30">
-                </a>
-            {% else %}
-                <a href="{% url 'account_login' %}" class="me-3">
-                    <img src="{% static 'icons/login.png' %}" alt="Login" width="30">
-                </a>
-            {% endif %}
-            <a href="{% url 'basket' %}">
-                <img src="{% static 'icons/chocolate-bar.png' %}" alt="Cart" width="30">
-            </a>
+        <!-- Меню категорий строго по центру -->
+        <div class="row justify-content-center">
+            <div class="col-auto">
+                <ul class="nav">
+                    {% get_categories as categories %}
+                    {% for category in categories %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'category_products' category.slug %}">{{ category.name }}</a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
         </div>
     </div>
-    <ul class="nav justify-content-center">
-        {% get_categories as categories %}
-        {% for category in categories %}
-            <li class="nav-item">
-                <a class="nav-link" href="{% url 'category_products' category.slug %}">{{ category.name }}</a>
-            </li>
-        {% endfor %}
-    </ul>
 </header>
+

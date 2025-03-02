@@ -1,7 +1,6 @@
-<svg focusable="false"
-     width="10"
-     height="2"
-     class="icon icon--minus-big"
-     viewBox="0 0 10 2">
-     <path fill="currentColor" d="M0 0h10v2H0z"> </path>
+<svg xmlns="http://www.w3.org/2000/svg" focusable="false"
+  width="10"
+  height="2"
+  viewBox="0 0 10 2">
+ <path fill="rgb(48, 35, 35)" d="M0 0h10v2H0z"></path>
 </svg>

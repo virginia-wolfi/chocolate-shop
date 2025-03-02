@@ -4,11 +4,16 @@ from django.utils.text import slugify
 from accounts.models import User
 from products.managers import BasketQuerySet
 
+class CategoryGroup(models.Model):
+    name = models.CharField(max_length=100, unique=True)
+    def __str__(self):
+        return self.name
 
 class ProductCategory(models.Model):
     name = models.CharField(max_length=128, unique=True)
     slug = models.SlugField(unique=True, blank=True, null=True)
     description = models.TextField(null=True, blank=True)
+    group = models.ForeignKey(CategoryGroup, on_delete=models.CASCADE, related_name="categories")
 
     class Meta:
         verbose_name = "category"
@@ -30,9 +35,7 @@ class Product(models.Model):
     price = models.DecimalField(max_digits=8, decimal_places=2)
     image = models.ImageField(upload_to="products_images", null=True, blank=True)
     ingredients = models.TextField(null=True, blank=True)
-    category = models.ForeignKey(
-        to=ProductCategory, on_delete=models.CASCADE, related_name="products"
-    )
+    categories = models.ManyToManyField(ProductCategory, blank=True, related_name="products")
 
     class Meta:
         verbose_name = "product"
@@ -44,7 +47,7 @@ class Product(models.Model):
         super().save(*args, **kwargs)
 
     def __str__(self):
-        return f"Product: {self.name} | Category: {self.category.name}"
+        return f"Product: {self.name}"
 
 
 class Basket(models.Model):

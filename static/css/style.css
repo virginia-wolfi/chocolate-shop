@@ -4,7 +4,6 @@
     --main-dark-color: rgb(48, 35, 35);
     --button-color: rgb(205, 167, 96);
     --text-color: rgb(48, 35, 35);
-    --button-hover-color: rgb(48, 35, 35);
     --section-background: rgb(214, 173, 96);
     --border-color: rgb(207, 197, 174);
     --border-color-darker: 146, 139, 123;
@@ -15,6 +14,26 @@ body {
     font-family: "Dosis", serif;
 }
 
+.container {
+    width: 100%;  /* Контейнер займет всю доступную ширину */
+    max-width: 1600px;  /* Максимальная ширина контейнера */
+    margin: 0 auto;  /* Центрируем контейнер по горизонтали */
+    padding: 0 15px;  /* Немного отступов по бокам */
+}
+header {
+    background-color: var(--main-dark-color);
+}
+ul {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+li {
+    list-style-type: none;
+}
+a.custom-link, a.selected {
+    color: var(--main-dark-color) !important;
+}
 
 .dot {
   font-size: 30px;
@@ -33,30 +52,88 @@ ul.nav  {
 .nav a {
  color: var(--header-text-color);
  text-decoration: none;
-
 }
 
 .nav a:hover {
-    color: var(--button-hover-color);
+    color: var(--section-background);
 }
+
+a.header-icon-basket {
+    position: relative;
+    display: inline-block;
+    background-image: url(../icons/basket.svg);
+    width: 20px;
+    height: 20px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    padding: 5px;
+    background-position: center;
+
+}
+a.header-icon-user {
+    position: relative;
+    display: inline-block;
+    background-image: url(../icons/user.svg);
+    width: 20px;
+    height: 20px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+
+}
+
+@media (max-width: 768px) {
+    .header-icon-container {
+        display: flex;
+    }
+}
+
+.header__cart-count {
+    position: absolute;
+    top: -2px;
+    right: -12px;
+    background-color: var(--main-bg-color);
+    color: var(--main-dark-color);
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    font-size: 9px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    text-align: center;
+}
+
+.header__cart-count:empty {
+    display: none;
+}
+
 form label {
     display: none;
 }
 .card {
     background-color: var(--main-bg-color);
-    border: 1px solid var(--border-color);
-    border-radius: 0px;
+    border: 1px solid var(--section-background);
+    border-radius: unset;
     color: var(--text-color);
-
-
 }
+
 .card:hover {
-    border-color: var(--button-color);
+    border-width: 1.5px;
 
 }
 .card a {
     color: var(--main-dark-color);
 }
+
+.card img {
+    max-height: 350px;
+    width: 100%;
+    object-fit: contain;
+    border-radius: 0 !important;
+}
+
 .btn-custom {
     color: var(--text-color);
     border-color: var(--button-color);
@@ -129,3 +206,49 @@ form label {
     outline: none !important;
     border: none !important;
 }
+
+.custom-link {
+    color: #3498db; /* Синий цвет */
+    text-decoration: none; /* Убираем подчеркивание */
+    display: inline-block; /* Ссылки будут в одну строку */
+    margin: 5px 0; /* Отступы между ссылками */
+}
+
+/* При наведении */
+.custom-link:hover {
+    color: #2980b9; /* Темный синий при наведении */
+}
+.category-header {
+    height: 100px;
+}
+
+.filter-form {
+    margin-top: 100px;
+}
+
+.search-field {
+    width: 100%;
+    padding: 3px;
+    border: none;
+    border-bottom: 0.5px solid var(--main-bg-color);
+    background-color: transparent;
+    outline: none;
+    color: var(--main-bg-color);
+}
+
+.search-field:focus {
+    border-bottom: 1px solid var(--main-bg-color);
+}
+
+.search-field {
+    background-image: url(../icons/search.svg);
+    background-repeat: no-repeat;
+    background-position: 10px center;
+    background-size: 16px;
+    padding-left: 35px;
+    color: var(--main-bg-color);
+}
+svg.icon {
+    color: var(--main-bg-color);
+}
+

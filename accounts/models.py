@@ -27,4 +27,9 @@ class User(AbstractUser):
         from products.models import Basket
         return Basket.objects.total_sum(self.pk)
 
+    @property
+    def basket_total_quantity(self):
+        from products.models import Basket
+        return Basket.objects.total_quantity(self.pk)
+
 

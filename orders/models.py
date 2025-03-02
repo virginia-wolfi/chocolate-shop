@@ -1,3 +1,4 @@
+
 from django.db import models
 from phonenumber_field.modelfields import PhoneNumberField
 
@@ -17,7 +18,6 @@ class Order(models.Model):
     basket_history = models.JSONField("Basket history", default=list)
     created = models.DateTimeField(auto_now_add=True)
     status = models.SmallIntegerField(default=OrderStatus.CREATED, choices=OrderStatus.choices)
-    total_sum = models.DecimalField("Total sum", max_digits=10, decimal_places=2)
     initiator = models.ForeignKey(to=User, on_delete=models.CASCADE, related_name='orders')
 
     def __str__(self):
@@ -26,6 +26,3 @@ class Order(models.Model):
     def save(self, *args, **kwargs):
         self.initiator.baskets.all().delete()
         super().save(*args, **kwargs)
-
-
-

@@ -1,46 +1,57 @@
 {% extends 'base.html' %}
+{% load crispy_forms_tags %}
 {% block header %}
     {% include 'partial/header.html' %}
 {% endblock %}
 {% block content %}
     <div class="container mt-5">
-        <h1>{{ category.name }}</h1>
-        <p>{{ category.description }}</p>
         <div class="row">
-            {% for product in category_products %}
-                <div class="col-md-3 mb-4">
-                    <div class="card h-100">
-                        <a href="{% url 'product_detail' product.slug %}"
-                           class="text-decoration-none text-dark">
-                            {% if product.image %}
-                                <img src="{{ product.image.url }}"
-                                     class="card-img-top rounded-top"
-                                     alt="{{ product.name }}"
-                                     style="max-height: 300px;
-                                            width: 100%;
-                                            object-fit: contain">
-                            {% else %}
-                                <img src="https://via.placeholder.com/150"
-                                     class="card-img-top"
-                                     alt="{{ product.name }}">
-                            {% endif %}
-                        </a>
-                        <div class="card-body text-center ">
-                            <h6 class="card-title">
-                                <a href="{% url 'product_detail' product.slug %}"
-                                   class="text-decoration-none text-dark">{{ product.name }}</a>
-                            </h6>
-                            <p class="card-price">${{ product.price }}</p>
-                            <form method="post" action="{% url 'add_to_card' %}">
-                                {% csrf_token %}
-                                <input type="hidden" name="quantity" value="1" id="quantity">
-                                <input type="hidden" name="product_pk" value="{{ product.pk }}">
-                                <button type="submit" class="btn btn-custom w-100">Add</button>
-                            </form>
-                        </div>
-                    </div>
+            <!-- Форма фильтрации слева -->
+            <div class="col-md-2 filter-form">
+                <form method="get">
+                    {{ filter.form }}
+                </form>
+            </div>
+            <!-- Список отфильтрованных продуктов -->
+            <div class="col-md-10">
+                <div class="category-header">
+                    <h1>{{ category.name }}</h1>
+                    <p>{{ category.description }}</p>
                 </div>
-            {% endfor %}
+                <div class="row">
+                    {% for product in category_products %}
+                        <div class="col-md-4 mb-4">
+                            <div class="card h-100">
+                                <a href="{% url 'product_detail' product.slug %}"
+                                   class="text-decoration-none text-dark">
+                                    {% if product.image %}
+                                        <img src="{{ product.image.url }}"
+                                             class="card-img-top rounded-top"
+                                             alt="{{ product.name }}">
+                                    {% else %}
+                                        <img src="https://via.placeholder.com/150"
+                                             class="card-img-top"
+                                             alt="{{ product.name }}">
+                                    {% endif %}
+                                </a>
+                                <div class="card-body text-center ">
+                                    <h6 class="card-title">
+                                        <a href="{% url 'product_detail' product.slug %}"
+                                           class="text-decoration-none text-dark">{{ product.name }}</a>
+                                    </h6>
+                                    <p class="card-price">${{ product.price }}</p>
+                                    <form method="post" action="{% url 'add_to_card' %}">
+                                        {% csrf_token %}
+                                        <input type="hidden" name="quantity" value="1" id="quantity">
+                                        <input type="hidden" name="product_pk" value="{{ product.pk }}">
+                                        <button type="submit" class="btn btn-custom w-100">Add</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
         </div>
     </div>
 {% endblock %}

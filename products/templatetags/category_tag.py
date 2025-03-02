@@ -6,4 +6,4 @@ register = template.Library()
 
 @register.simple_tag
 def get_categories():
-    return ProductCategory.objects.all()
+    return ProductCategory.objects.filter(group__name='Format').all()
