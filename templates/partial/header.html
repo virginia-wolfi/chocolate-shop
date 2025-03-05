@@ -1,6 +1,5 @@
 {% load static %}
 {% load category_tag %}
-
 <header>
     <div class="container">
         <div class="row align-items-center">
@@ -16,32 +15,15 @@
                 </a>
             </div>
             <div class="col-md-3 text-end header-icons-container">
-                <a href="{% url 'account_login' %}" class="me-3 header-icon-user"></a>
-                <a href="{% url 'basket' %}" class="header-icon-basket">
-                    {% if user.is_authenticated %}
+                {% if user.is_authenticated %}
+                    <a href="{% url 'profile' %}" class="me-3 header-icon-user"></a>
+                    <a href="{% url 'basket' %}" class="header-icon-basket">
                         <cart-count class="header__cart-count header__cart-count--floating bubble-count">{{ user.basket_total_quantity }}</cart-count>
+                    {% else %}
+                        <a href="{% url 'account_login' %}" class="me-3 header-icon-user"></a>
                     {% endif %}
                 </a>
-            </div>
-            <div class="row">
-                <form action="{% url 'product_list' %}" method="get">
-                    {{ product_name_filter.form }}
-                </form>
-            </div>
-        </div>
-        <!-- Меню категорий строго по центру -->
-        <div class="row justify-content-center">
-            <div class="col-auto">
-                <ul class="nav">
-                    {% get_categories as categories %}
-                    {% for category in categories %}
-                        <li class="nav-item">
-                            <a class="nav-link" href="{% url 'category_products' category.slug %}">{{ category.name }}</a>
-                        </li>
-                    {% endfor %}
-                </ul>
             </div>
         </div>
     </div>
 </header>
-

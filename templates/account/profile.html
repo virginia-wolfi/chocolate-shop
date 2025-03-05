@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block header %}
+    {% include 'partial/header.html' %}
+{% endblock %}
+{% block content %}
+    {% include 'partial/profile_navigation.html' %}
+    <div class="container d-flex justify-content-center mt-4">
+        <div class="col-md-3">
+            <h4>Personal Information</h4>
+            <div class="text-left">
+                <p>
+                    <strong>Name:</strong> {{ user.username }}
+                </p>
+                <p>
+                    <strong>Email:</strong> {{ user.email }}
+                </p>
+            </div>
+        </div>
+    </div>
+{% endblock %}

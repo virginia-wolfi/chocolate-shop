@@ -15,14 +15,21 @@ body {
 }
 
 .container {
-    width: 100%;  /* Контейнер займет всю доступную ширину */
-    max-width: 1600px;  /* Максимальная ширина контейнера */
-    margin: 0 auto;  /* Центрируем контейнер по горизонтали */
-    padding: 0 15px;  /* Немного отступов по бокам */
+    width: 100%;
+    max-width: 1600px;
+    margin: 0 auto;
+    padding: 0 15px;
 }
 header {
     background-color: var(--main-dark-color);
 }
+
+a {
+    text-decoration: none;
+    display: inline-block;
+    color: var(--main-dark-color)
+}
+
 ul {
     list-style-type: none;
     padding-left: 0;
@@ -31,8 +38,9 @@ ul {
 li {
     list-style-type: none;
 }
-a.custom-link, a.selected {
-    color: var(--main-dark-color) !important;
+a.selected {
+    color: var(--main-dark-color) ;
+    text-decoration: underline;
 }
 
 .dot {
@@ -42,6 +50,11 @@ a.custom-link, a.selected {
   right: 0;
   transform: translateY(-50%);
 }
+
+.products-navigation, .profile-navigation {
+    background-color: var(--main-dark-color);
+}
+
 
 ul.nav  {
     background-color: var(--main-dark-color);
@@ -90,8 +103,8 @@ a.header-icon-user {
 
 .header__cart-count {
     position: absolute;
-    top: -2px;
-    right: -12px;
+    top: -5px;
+    right: -14px;
     background-color: var(--main-bg-color);
     color: var(--main-dark-color);
     width: 20px;
@@ -138,6 +151,11 @@ form label {
     color: var(--text-color);
     border-color: var(--button-color);
 }
+
+.btn-link {
+    text-decoration: underline;
+    color: var(--main-dark-color);
+}
 .btn-custom:hover {
     background-color: var(--button-color);
 }
@@ -176,23 +194,32 @@ form label {
 }
 
 .quantity-container {
-    display: flex !important;
-    align-items: center !important;
-    padding: 5px !important;
-    width: 100px !important;
-    justify-content: space-between !important;
+    display: flex;
+    align-items: center;
+    padding: 5px;
+    width: 100px ;
+    justify-content: space-between;
     height: 50px;
 }
 
-.quantity-btn {
-    border: none !important;
-    font-size: 20px !important;
-    padding: 5px !important;
-    cursor: pointer !important;
+.minus-btn, .plus-btn {
+    width: 20px;
+    height: 20px;
+    background-repeat: no-repeat;
+    border: none;
+    cursor: pointer;
     display: flex;
     background-color: var(--main-bg-color);
+    background-position: center
 }
 
+.minus-btn {
+    background-image: url(../icons/decrease.svg);
+}
+
+.plus-btn {
+    background-image: url(../icons/increase.svg);
+}
 .quantity-input {
     width: 40px !important;
     text-align: center !important;
@@ -207,17 +234,6 @@ form label {
     border: none !important;
 }
 
-.custom-link {
-    color: #3498db; /* Синий цвет */
-    text-decoration: none; /* Убираем подчеркивание */
-    display: inline-block; /* Ссылки будут в одну строку */
-    margin: 5px 0; /* Отступы между ссылками */
-}
-
-/* При наведении */
-.custom-link:hover {
-    color: #2980b9; /* Темный синий при наведении */
-}
 .category-header {
     height: 100px;
 }

@@ -1,9 +1,10 @@
 import django_filters
 from django.db.models import Subquery
 from django import forms
+from django_filters.widgets import LinkWidget
 
 from .models import ProductCategory, Product
-from .widgets import LinkWidget
+
 
 def available_types(request):
     format = request.resolver_match.kwargs.get("slug")

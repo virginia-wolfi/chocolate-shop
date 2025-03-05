@@ -1,0 +1,24 @@
+{% load static %}
+{% load category_tag %}
+<div class="container-fluid products-navigation">
+    <div class="row">
+        <div class="col-md-2 offset-md-2">
+            <form action="{% url 'product_list' %}" method="get">
+                {{ product_name_filter.form }}
+            </form>
+        </div>
+    </div>
+    <!-- Меню категорий строго по центру -->
+    <div class="row justify-content-center">
+        <div class="col-auto">
+            <ul class="nav">
+                {% get_categories as categories %}
+                {% for category in categories %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'category_products' category.slug %}">{{ category.name }}</a>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</div>

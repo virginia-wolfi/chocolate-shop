@@ -2,18 +2,21 @@
 {% block header %}
     {% include 'partial/header.html' %}
 {% endblock %}
+{% block products_navigation %}
+    {% include 'partial/products_navigation.html' %}
+{% endblock %}
 {% block content %}
     {% load static %}
     <div class="container mt-5">
-        <div class="row">
+        <div class="row justify-content-center">
             <!-- Картинка слева -->
-            <div class="col-md-5">
+            <div class="col-md-4">
                 <img src="{{ product.image.url }}"
                      class="img-fluid rounded"
                      alt="{{ product.name }}">
             </div>
             <!-- Контент справа -->
-            <div class="col-md-7 d-flex flex-column">
+            <div class="col-md-5 d-flex flex-column">
                 <h2>{{ product.name }}</h2>
                 <div class="d-flex align-items-center">
                     <span class="fs-4">{{ product.price }} €</span>
@@ -24,15 +27,7 @@
                     {% csrf_token %}
                     <div class="d-flex align-items-center">
                         <div class="quantity-container">
-                            <button type="button" class="quantity-btn"  id="decrease">
-                                <svg focusable="false"
-                                     width="10"
-                                     height="2"
-                                     class="icon icon--minus-big"
-                                     viewBox="0 0 10 2">
-                                    <path fill="currentColor" d="M0 0h10v2H0z"></path>
-                                </svg>
-                            </button>
+                            <button type="button" class="minus-btn"  id="decrease"></button>
                             <input type="text"
                                    name="quantity"
                                    value="1"
@@ -42,15 +37,7 @@
                                    pattern="[0-9]*"
                                    id="quantity">
                             <input type="hidden" name="product_pk" value="{{ product.pk }}">
-                            <button type="button" class="quantity-btn" id="increase">
-                                <svg focusable="false"
-                                     width="10"
-                                     height="10"
-                                     class="icon icon--plus-big   "
-                                     viewBox="0 0 10 10">
-                                    <path fill-rule="evenodd" clip-rule="evenodd" d="M4 6v4h2V6h4V4H6V0H4v4H0v2h4z" fill="currentColor"></path>
-                                </svg>
-                            </button>
+                            <button type="button" class="plus-btn" id="increase"></button>
                         </div>
                         <button type="submit" class="btn btn-custom ms-3">ADD</button>
                     </div>

@@ -44,6 +44,7 @@ class ProductDetailView(DetailView):
     model = Product
     template_name = "product/detail.html"
     context_object_name = "product"
+    extra_context = {'product_name_filter': ProductFilter}
 
 
 class BasketAddView(LoginRequiredMixin, View):
@@ -59,6 +60,7 @@ class BasketAddView(LoginRequiredMixin, View):
 class BasketListView(LoginRequiredMixin, ListView):
     template_name = 'basket/basket.html'
     context_object_name = 'baskets'
+    extra_context = {'product_name_filter': ProductFilter}
 
     def get_queryset(self):
         return self.request.user.baskets.all()

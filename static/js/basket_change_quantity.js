@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", function () {
-    let decreaseButtons = document.querySelectorAll(".decrease");
-    let increaseButtons = document.querySelectorAll(".increase");
+    let decreaseButtons = document.querySelectorAll(".minus-btn");
+    let increaseButtons = document.querySelectorAll(".plus-btn");
     let quantityInputs = document.querySelectorAll(".quantity-input");
 
     function updateCart(productId, changeInQuantity) {

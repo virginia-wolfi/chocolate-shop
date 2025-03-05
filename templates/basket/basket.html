@@ -2,73 +2,66 @@
 {% block header %}
     {% include 'partial/header.html' %}
 {% endblock %}
+{% block products_navigation %}
+    {% include 'partial/products_navigation.html' %}
+{% endblock %}
 {% block content %}
     {% load static %}
     <script>var addToCartUrl = "{% url 'add_to_card' %}";</script>
-    <div class="container mt-5 col-md-6">
+    <div class="container mt-5">
         <h2 class="mb-4 text-center">Shopping Cart</h2>
         {% if baskets %}
             <div class="list-group border-0">
                 {% for item in baskets %}
-                    <div class="row align-items-center border-bottom py-1 justify-content-center g-2">
-                        <!-- Изображение -->
-                        <div class="col-md-3 text-center">
-                            <img src="{{ item.product.image.url }}"
-                                 class="img-fluid"
-                                 alt="{{ item.product.name }}"
-                                 style="max-height: 80px">
-                        </div>
-                        <!-- Название -->
-                        <div class="col-md-3 d-flex align-items-center justify-content-center">
-                            <h6 class="mb-0">{{ item.product.name }}</h6>
-                        </div>
-                        <div class="col-md-1 d-flex align-items-center justify-content-center">
-                            <h6 class="mb-0">{{ item.product.price }}</h6>
-                        </div>
-                        <div class="col-md-3 text-center px-1">
-                            <div class="d-flex align-items-center justify-content-center">
-                                <div class="quantity-container">
-                                    <button type="button"
-                                            class="quantity-btn decrease-btn"
-                                            data-product-id="{{ item.product.pk }}">
-                                    </button>
-                                    <input type="text"
-                                           name="quantity_{{ item.product.pk }}"
-                                           value="{{ item.quantity }}"
-                                           min="1"
-                                           class="quantity-input"
-                                           inputmode="numeric"
-                                           pattern="[0-9]*"
-                                           data-product-id="{{ item.product.pk }}">
-                                    <button type="button"
-                                            class="quantity-btn increase"
-                                            data-product-id="{{ item.product.pk }}">
-                                        <svg focusable="false"
-                                             width="10"
-                                             height="10"
-                                             class="icon icon--plus-big"
-                                             viewBox="0 0 10 10">
-                                            <path fill-rule="evenodd" clip-rule="evenodd" d="M4 6v4h2V6h4V4H6V0H4v4H0v2h4z" fill="currentColor"></path>
-                                        </svg>
-                                    </button>
-                                </div>
+                    <div class="row align-items-center border-bottom py-1 justify-content-center g-2 g-md-5  d-flex">
+                        <!-- Ссылка на продукт -->
+                        <a href="{% url 'product_detail' item.product.slug %}"
+                           class="d-flex align-items-center text-decoration-none gap-3 col-md-5">
+                            <!-- Изображение -->
+                            <div class="col-md-4">
+                                <img src="{{ item.product.image.url }}"
+                                     class="img-fluid"
+                                     alt="{{ item.product.name }}"
+                                     style="max-height: 80px">
                             </div>
+                            <!-- Название -->
+                            <div class="col-md-5">
+                                <h6 class="mb-0">{{ item.product.name }}</h6>
+                            </div>
+                            <!-- Цена -->
+                            <div class="col-md-2">
+                                <h6 class="mb-0">{{ item.product.price }}</h6>
+                            </div>
+                        </a>
+                        <!-- Количество -->
+                        <div class="quantity-container d-flex align-items-center justify-content-center">
+                            <button type="button"
+                                    class="minus-btn"
+                                    data-product-id="{{ item.product.pk }}"></button>
+                            <input type="text"
+                                   name="quantity_{{ item.product.pk }}"
+                                   value="{{ item.quantity }}"
+                                   min="1"
+                                   class="quantity-input"
+                                   inputmode="numeric"
+                                   pattern="[0-9]*"
+                                   data-product-id="{{ item.product.pk }}">
+                            <button type="button"
+                                    class="plus-btn"
+                                    data-product-id="{{ item.product.pk }}"></button>
                         </div>
                         <!-- Форма удаления -->
-                        <div class="col-md-2 d-flex justify-content-center justify-content-md-start">
+                        <div class="col-md-2 text-center text-md-start">
                             <form method="post" action="{% url 'basket_delete' item.pk %}">
                                 {% csrf_token %}
-                                <button type="submit"
-                                        class="btn btn-link p-0 text-decoration-underline"
-                                        style="color: inherit;
-                                               border: none">Remove</button>
+                                <button type="submit" class="btn btn-link">Remove</button>
                             </form>
                         </div>
                     </div>
                 {% endfor %}
             </div>
             <!-- Кнопка Checkout -->
-            <div class="row mt-4">
+            <div class="row mt-4 justify-content-center">
                 <div class="col-md-4">
                     <a href="{% url 'checkout' %}"
                        class="btn btn-custom w-100 d-flex justify-content-center align-items-center gap-2">
