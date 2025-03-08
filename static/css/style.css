@@ -7,8 +7,13 @@
     --section-background: rgb(214, 173, 96);
     --border-color: rgb(207, 197, 174);
     --border-color-darker: 146, 139, 123;
+    --new-price: rgb(145, 59, 89);
+    --base-font-size: 16px;
 }
 
+* {
+        -webkit-font-smoothing: antialiased;
+}
 body {
     background-color: var(--main-bg-color);
     font-family: "Dosis", serif;
@@ -199,7 +204,6 @@ form label {
     padding: 5px;
     width: 100px ;
     justify-content: space-between;
-    height: 50px;
 }
 
 .minus-btn, .plus-btn {
@@ -267,4 +271,27 @@ form label {
 svg.icon {
     color: var(--main-bg-color);
 }
+.new-price {
+    color: var(--new-price);
+}
+.old-price {
+    text-decoration: line-through;
+    opacity: .7;
+}
 
+@media screen and (min-width: 741px) {
+    html {
+        font-size: var(--base-font-size);
+        line-height: 1.7333333333;
+    }
+}
+
+.input-group {
+    display: flex;
+    align-items: center;
+}
+
+.input-group input {
+    flex: 1; /* Растягивает инпут */
+    margin-right: 10px; /* Отступ от кнопки */
+}

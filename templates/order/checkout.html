@@ -9,47 +9,57 @@
     {% load crispy_forms_tags %}
     <div class="container mt-5">
         <h3>Confirm Your Order</h3>
-        <!-- Информация о корзине -->
         <div class="basket-items">
             <div class="list-group border-0">
                 {% for item in user.baskets.all %}
-                    <div class="row align-items-center py-1 justify-content-center g-2">
-                        <!-- Изображение -->
-                        <div class="col-md-3 text-center">
-                            <img src="{{ item.product.image.url }}"
-                                 class="img-fluid"
-                                 alt="{{ item.product.name }}"
-                                 style="max-height: 80px">
-                        </div>
-                        <!-- Название -->
-                        <div class="col-md-3 d-flex align-items-center justify-content-center">
-                            <h6 class="mb-0">{{ item.product.name }}</h6>
-                        </div>
-                        <div class="col-md-2 d-flex align-items-center justify-content-center">
-                            <h6 class="mb-0">{{ item.quantity }} pcs</h6>
-                        </div>
-                        <div class="col-md-2 d-flex align-items-center justify-content-center">
-                            <h6 class="mb-0">{{ item.sum }}</h6>
-                        </div>
+                    <div class="row align-items-center py-1 justify-content-center g-2 d-flex">
+                        <a href="{% url 'product_detail' item.product.slug %}"
+                           class="d-flex align-items-center text-decoration-none gap-2 col-md-8">
+                            <!-- Изображение -->
+                            <div class="col-md-5 text-center">
+                                <img src="{{ item.product.image.url }}"
+                                     class="img-fluid"
+                                     alt="{{ item.product.name }}"
+                                     style="max-height: 80px">
+                            </div>
+                            <div class="col-md-4">
+                                <h6 class="mb-0">{{ item.product.name }}</h6>
+                            </div>
+                            <div class="col-md-2">
+                                <h6 class="mb-0">{{ item.quantity }} pcs</h6>
+                            </div>
+                            <div class="col-md-2">
+                                <h6 class="mb-0">{{ item.sum }}</h6>
+                            </div>
+                        </a>
                     </div>
                 {% endfor %}
             </div>
-            <div class="row m-3">
-                <div class="col offset-md-10">
-                    <span>Total</span>
-                    <span>• {{ user.basket_total_sum }}</span>
+            <div class="row justify-content-center my-3">
+                <div class="col-md-4">
+                    {% if total_after_promo %}
+                        <p>
+                            Total:
+                            <span class="old-price">${{ basket_total_sum }}</span>
+                            <span class="new-price">${{ total_after_promo }}</span>
+                        </p>
+                        <p class="text-muted small">Promo code discount applies only to non-discounted items.</p>
+                    {% else %}
+                        <p>Total: ${{ basket_total_sum }}</p>
+                    {% endif %}
                 </div>
             </div>
-        </div>
-        <div class="container d-flex justify-content-center">
-            <div class="col-md-6">
-                <form method="post"  action="{% url 'checkout' %}">
-                    {% csrf_token %}
-                    {{ form|crispy }}
-                    <button type="submit" class="btn btn-custom w-100">Confirm Order</button>
-                </form>
+            <div class="container d-flex justify-content-center">
+                <div class="col col-md-4">
+                    <form method="post"  action="{% url 'checkout' %}">
+                        {% csrf_token %}
+                        {{ form|crispy }}
+                        <button type="submit" class="btn btn-custom w-100">Confirm Order</button>
+                    </form>
+                </div>
             </div>
+            {% if order_success %}<p class="alert alert-success mt-3">Your order has been successfully placed!</p>{% endif %}
         </div>
-        {% if order_success %}<p class="alert alert-success mt-3">Your order has been successfully placed!</p>{% endif %}
     </div>
 {% endblock %}
+н

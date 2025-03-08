@@ -61,7 +61,7 @@ product_category_map (product_slug, category_slugs) AS (
     VALUES
         ('chocoviar-75', ARRAY['chocolates', 'dark-chocolate']),
         ('chocoviar-pistachio', ARRAY['chocolates', 'dark-chocolate']),
-        ('Chocoviar Crema Cacao', ARRAY['chocolates', 'milk-chocolate']),
+        ('chocoviar-crema-cacao', ARRAY['chocolates', 'milk-chocolate']),
         ('chocoviar-stracciatella', ARRAY['chocolates', 'milk-chocolate']),
         ('chocoviar-arancia', ARRAY['chocolates', 'dark-chocolate']),
         ('chocoviar-creme-brule', ARRAY['chocolates', 'dark-chocolate']),

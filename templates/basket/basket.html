@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load crispy_forms_tags %}
 {% block header %}
     {% include 'partial/header.html' %}
 {% endblock %}
@@ -9,32 +10,42 @@
     {% load static %}
     <script>var addToCartUrl = "{% url 'add_to_card' %}";</script>
     <div class="container mt-5">
+        {% if messages %}
+            {% for message in messages %}<div class="alert">{{ message }}</div>{% endfor %}
+        {% endif %}
         <h2 class="mb-4 text-center">Shopping Cart</h2>
         {% if baskets %}
             <div class="list-group border-0">
                 {% for item in baskets %}
-                    <div class="row align-items-center border-bottom py-1 justify-content-center g-2 g-md-5  d-flex">
+                    <div class="row align-items-center py-1 justify-content-center g-2  d-flex">
                         <!-- Ссылка на продукт -->
                         <a href="{% url 'product_detail' item.product.slug %}"
-                           class="d-flex align-items-center text-decoration-none gap-3 col-md-5">
+                           class="d-flex align-items-center text-decoration-none gap-2 col-md-6 justify-content-end">
                             <!-- Изображение -->
-                            <div class="col-md-4">
+                            <div class="col-md-3">
                                 <img src="{{ item.product.image.url }}"
                                      class="img-fluid"
                                      alt="{{ item.product.name }}"
                                      style="max-height: 80px">
                             </div>
                             <!-- Название -->
-                            <div class="col-md-5">
+                            <div class="col-md-3">
                                 <h6 class="mb-0">{{ item.product.name }}</h6>
                             </div>
                             <!-- Цена -->
                             <div class="col-md-2">
-                                <h6 class="mb-0">{{ item.product.price }}</h6>
+                                {% if item.product.discount_price and item.product.discount_price < item.product.price %}
+                                    <p class="mb-0">
+                                        <span class="old-price">${{ item.product.price }}</span>
+                                        <span class="new-price">${{ item.product.discount_price }}</span>
+                                    </p>
+                                {% else %}
+                                    <p class="mb-0">${{ item.product.price }}</p>
+                                {% endif %}
                             </div>
                         </a>
                         <!-- Количество -->
-                        <div class="quantity-container d-flex align-items-center justify-content-center">
+                        <div class="quantity-container d-flex align-items-center justify-content-center col-md-2">
                             <button type="button"
                                     class="minus-btn"
                                     data-product-id="{{ item.product.pk }}"></button>
@@ -61,18 +72,50 @@
                 {% endfor %}
             </div>
             <!-- Кнопка Checkout -->
-            <div class="row mt-4 justify-content-center">
+            <div class="row justify-content-center my-3">
+                <div class="col-md-4">
+                    <form method="post"
+                          action="{% url 'apply_promo' %}"
+                          class="d-flex gap-2 align-items-center">
+                        {% csrf_token %}
+                        {{ promo_form|crispy }}
+                        <button type="submit" class="btn btn-custom align-self-baseline">Apply Promo Code</button>
+                    </form>
+                    {% if request.session.promo_code %}
+                        <form method="post" action="{% url 'remove_promo' %}">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-danger">Remove Promo Code</button>
+                        </form>
+                    {% endif %}
+                </div>
+            </div>
+            <hr>
+            <div class="row justify-content-center my-3">
+                <div class="col-md-4">
+                    {% if total_after_promo %}
+                        <p>
+                            Total:
+                            <span class="old-price">${{ basket_total_sum }}</span>
+                            <span class="new-price">${{ total_after_promo }}</span>
+                        </p>
+                        <p class="text-muted small">Promo code discount applies only to non-discounted items.</p>
+                    {% else %}
+                        <p>Total: ${{ basket_total_sum }}</p>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="row justify-content-center my-3">
                 <div class="col-md-4">
                     <a href="{% url 'checkout' %}"
                        class="btn btn-custom w-100 d-flex justify-content-center align-items-center gap-2">
                         <span>Checkout</span>
-                        <span>• {{ user.basket_total_sum }}</span>
+                        <span>• ${{ total_after_promo | default:basket_total_sum }}</span>
                     </a>
                 </div>
-            {% else %}
-                <p class="text-center">Your cart is empty.</p>
-            {% endif %}
-        </div>
+            </div>
+        {% else %}
+            <p class="text-center">Your cart is empty.</p>
+        {% endif %}
     </div>
     <script src="{% static 'js/basket_change_quantity.js' %}"></script>
 {% endblock %}
