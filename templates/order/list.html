@@ -6,7 +6,9 @@
 {% block content %}
     {% include 'partial/profile_navigation.html' %}
     <div class="container mt-5">
-        <h3>Order List</h3>
+        <div class="mb-4 text-center">
+        <h4>Order List</h4>
+            </div>
         <!-- Accordion для отображения заказов -->
         <div class="accordion" id="orderAccordion">
             {% for order in orders %}

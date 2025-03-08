@@ -1,20 +1,30 @@
 from django.urls import path
 
-from products.views import CategoryProductsView, ProductDetailView, BasketAddView, BasketListView, BasketDeleteView, \
-    ProductListView, ReviewCreateView, ReviewDeleteView
+from products import views
 
 urlpatterns = [
     path(
         "category/<slug:slug>/",
-        CategoryProductsView.as_view(),
+        views.CategoryProductsView.as_view(),
         name="category_products",
     ),
-    path("product/", ProductListView.as_view(), name="product_list"),
-    path("product/<slug:slug>/", ProductDetailView.as_view(), name="product_detail"),
-    path("add-to-cart/", BasketAddView.as_view(), name="add_to_card"),
-    path("basket/", BasketListView.as_view(), name="basket"),
-    path("basket-delete/<int:pk>", BasketDeleteView.as_view(), name="basket_delete"),
-    path('product/<slug:slug>/add-review/', ReviewCreateView.as_view(), name='add_review'),
-    path('product/<slug:slug>/delete-review/<int:review_id>/', ReviewDeleteView.as_view(), name='delete_review'),
-
+    path("product/", views.ProductListView.as_view(), name="product_list"),
+    path(
+        "product/<slug:slug>/", views.ProductDetailView.as_view(), name="product_detail"
+    ),
+    path("add-to-cart/", views.BasketAddView.as_view(), name="add_to_card"),
+    path("basket/", views.BasketListView.as_view(), name="basket"),
+    path(
+        "basket-delete/<int:pk>", views.BasketDeleteView.as_view(), name="basket_delete"
+    ),
+    path(
+        "product/<slug:slug>/add-review/",
+        views.ReviewCreateView.as_view(),
+        name="add_review",
+    ),
+    path(
+        "product/<slug:slug>/delete-review/<int:review_id>/",
+        views.ReviewDeleteView.as_view(),
+        name="delete_review",
+    ),
 ]

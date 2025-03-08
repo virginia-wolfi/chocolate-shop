@@ -8,7 +8,9 @@
 {% block content %}
     {% load crispy_forms_tags %}
     <div class="container mt-5">
-        <h3>Confirm Your Order</h3>
+        <div class="page-h1 container d-flex justify-content-center mt-4">
+        <h4>Confirm Your Order</h4>
+            </div>
         <div class="basket-items">
             <div class="list-group border-0">
                 {% for item in user.baskets.all %}

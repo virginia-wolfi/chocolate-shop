@@ -4,6 +4,7 @@ from django.core.exceptions import ValidationError
 from django.db import models
 from django.utils.timezone import now
 
+
 class BasketQuerySet(models.QuerySet):
     def user_baskets(self, user):
         """Returns baskets filtered by user."""
@@ -22,7 +23,3 @@ class BasketQuerySet(models.QuerySet):
     def json(self, user, promo_code=None):
         """Returns the user's basket as a JSON-like list."""
         return [basket.de_json(promo_code) for basket in self.user_baskets(user)]
-
-
-
-
