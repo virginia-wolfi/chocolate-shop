@@ -10,6 +10,7 @@ echo "Database is ready!"
 
 echo "Applying database migrations..."
 poetry run python manage.py migrate
+poetry run python manage.py create_groups
 
 apk add --no-cache postgresql-client
 

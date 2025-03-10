@@ -89,6 +89,7 @@
                 {% empty %}
                     No reviews yet. Be the first to leave a review!
                 {% endfor %}
+                {% if request.user.is_authenticated %}
                 {% if not user_review_exists %}
                     <hr>
                     <h3>Leave a Review</h3>
@@ -97,6 +98,7 @@
                         {{ product_review_form|crispy }}
                         <button type="submit" class="btn btn-custom">Submit Review</button>
                     </form>
+                {% endif %}
                 {% endif %}
             </div>
         </div>

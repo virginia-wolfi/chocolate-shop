@@ -103,9 +103,12 @@ class ProductDetailView(TitleMixin, DetailView):
         """
         context = super().get_context_data(**kwargs)
         product = self.get_object()
-        user_review_exists = Review.objects.filter(
-            user=self.request.user, product=product
-        ).exists()
+        if self.request.user.is_authenticated:
+            user_review_exists = Review.objects.filter(
+                user=self.request.user, product=product
+            ).exists()
+        else:
+            user_review_exists = False
 
         context["user_review_exists"] = user_review_exists
         return context
